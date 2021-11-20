@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/item_circular_color_accent_border.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/drawable/item_circular_color_accent_ripple_border.xml" value="0.32708333333333334" />
+        <entry key="app/src/main/res/layout/activity_excercise.xml" value="0.2115036231884058" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2115036231884058" />
       </map>
     </option>

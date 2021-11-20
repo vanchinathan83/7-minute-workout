@@ -1,5 +1,6 @@
 package com.vanchi.a7minuteworkout
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -13,7 +14,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         var frameLayout = binding?.frameLayout?.setOnClickListener{
-            Toast.makeText(this, "Starting Workout", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ExcerciseActivity::class.java)
+            startActivity(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
