@@ -6,6 +6,8 @@ import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
 import com.vanchi.a7minuteworkout.databinding.ActivityExcerciseBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ExerciseActivity : AppCompatActivity() {
     private var binding : ActivityExcerciseBinding? = null
@@ -13,6 +15,7 @@ class ExerciseActivity : AppCompatActivity() {
     private var exerciseTimer: CountDownTimer? = null
     private var restTime: Int = 0
     private var exerciseTime: Int = 0
+    private var exercises: ArrayList<Exercise>? = null
     object ExerciseConstants {
         const val REST_TIME_IN_MS = 10000L
         const val EXERCISE_TIME_IN_MS = 30000L
@@ -34,6 +37,7 @@ class ExerciseActivity : AppCompatActivity() {
         binding?.toolbar?.setNavigationOnClickListener{
             onBackPressed()
         }
+        exercises = Constants.getExercises()
         binding?.flExercise?.visibility = View.INVISIBLE
         setupRestTimer()
     }
