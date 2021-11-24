@@ -13,6 +13,15 @@ class ExerciseActivity : AppCompatActivity() {
     private var exerciseTimer: CountDownTimer? = null
     private var restTime: Int = 0
     private var exerciseTime: Int = 0
+    object ExerciseConstants {
+        const val REST_TIME_IN_MS = 10000L
+        const val EXERCISE_TIME_IN_MS = 30000L
+        const val TICK_IN_MS = 1000L
+        const val REST_TIME_TEXT = "10"
+        const val EXERCISE_TIME_TEXT = "30"
+        const val EXERCISE_TEST = "Exercise Name:"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExcerciseBinding.inflate(layoutInflater)
@@ -35,47 +44,48 @@ class ExerciseActivity : AppCompatActivity() {
             restTimer?.cancel()
             restTimer = null
         }
-        setProgressBar()
+        startRestTimer()
     }
 
-    private fun setProgressBar(){
+    private fun startRestTimer(){
         binding?.restProgressBar?.progress = restTime
-        restTimer = object : CountDownTimer(10000, 1000){
+        restTimer = object : CountDownTimer(ExerciseConstants.REST_TIME_IN_MS, ExerciseConstants.TICK_IN_MS){
             override fun onTick(millisUntilFinished: Long) {
                 restTime ++
-                binding?.restProgressBar?.progress = 10 - restTime
-                binding?.restTimer?.text = (10 - restTime).toString()
+                binding?.restProgressBar?.progress = ExerciseConstants.REST_TIME_IN_MS.toInt()/1000 - restTime
+                binding?.restTimer?.text = (ExerciseConstants.REST_TIME_IN_MS.toInt()/1000 - restTime).toString()
             }
 
             override fun onFinish() {
                 Toast.makeText(this@ExerciseActivity, "Rest time done!!",Toast.LENGTH_SHORT).show()
                 binding?.flExercise?.visibility = View.VISIBLE
-                binding?.exerciseTimer?.text = "30"
+                binding?.exerciseTimer?.text = ExerciseConstants.EXERCISE_TIME_TEXT
                 binding?.flRest?.visibility = View.INVISIBLE
-                setExerciseTimer()
+                startExerciseTimer()
             }
 
         }.start()
     }
 
-    private fun setExerciseTimer(){
+    private fun startExerciseTimer(){
         if(exerciseTimer != null){
             exerciseTime = 0
             exerciseTimer?.cancel()
             exerciseTimer = null
         }
         binding?.exerciseProgressBar?.progress = exerciseTime
-        exerciseTimer = object : CountDownTimer(30000, 1000){
+        binding?.tvTitle?.text = "Exercise Name"
+        exerciseTimer = object : CountDownTimer(ExerciseConstants.EXERCISE_TIME_IN_MS, ExerciseConstants.TICK_IN_MS){
             override fun onTick(millisUntilFinished: Long) {
                 exerciseTime++
-                binding?.exerciseProgressBar?.progress = 30 - exerciseTime
-                binding?.exerciseTimer?.text = (30 - exerciseTime).toString()
+                binding?.exerciseProgressBar?.progress = ExerciseConstants.EXERCISE_TIME_IN_MS.toInt()/1000 - exerciseTime
+                binding?.exerciseTimer?.text = (ExerciseConstants.EXERCISE_TIME_IN_MS.toInt()/1000 - exerciseTime).toString()
             }
 
             override fun onFinish() {
                 Toast.makeText(this@ExerciseActivity, "Exercise time done!!",Toast.LENGTH_SHORT).show()
                 binding?.flExercise?.visibility = View.INVISIBLE
-                binding?.restTimer?.text = "10"
+                binding?.restTimer?.text = ExerciseConstants.REST_TIME_TEXT
                 binding?.flRest?.visibility = View.VISIBLE
                 setupRestTimer()
             }
