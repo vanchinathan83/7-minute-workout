@@ -18,8 +18,8 @@ class ExerciseActivity : AppCompatActivity() {
     private var exercises: ArrayList<Exercise>? = null
     private var currentExercisePosition: Int = -1
     object ExerciseConstants {
-        const val REST_TIME_IN_MS = 10000L
-        const val EXERCISE_TIME_IN_MS = 30000L
+        const val REST_TIME_IN_MS = 1000L
+        const val EXERCISE_TIME_IN_MS = 3000L
         const val TICK_IN_MS = 1000L
         const val REST_TIME_TEXT = "10"
         const val EXERCISE_TIME_TEXT = "30"
@@ -58,6 +58,10 @@ class ExerciseActivity : AppCompatActivity() {
             binding?.flRest?.visibility = View.VISIBLE
             binding?.tvTitle?.visibility = View.VISIBLE
             binding?.restTimer?.text = ExerciseConstants.REST_TIME_TEXT
+            binding?.tvUpcomingExerciseLabel?.visibility = View.VISIBLE
+            binding?.tvUpcomingExerciseText?.visibility = View.VISIBLE
+            binding?.tvUpcomingExerciseText?.text = exercises!![currentExercisePosition].getName()
+
             startRestTimer()
         }else{
             Toast.makeText(this, "Congratulations! You are done with 7 minutes of workout!!", Toast.LENGTH_SHORT).show()
@@ -76,6 +80,8 @@ class ExerciseActivity : AppCompatActivity() {
             override fun onFinish() {
                 binding?.flRest?.visibility = View.INVISIBLE
                 binding?.tvTitle?.visibility = View.INVISIBLE
+                binding?.tvUpcomingExerciseLabel?.visibility = View.INVISIBLE
+                binding?.tvUpcomingExerciseText?.visibility = View.INVISIBLE
                 setUpExerciseView()
             }
 
