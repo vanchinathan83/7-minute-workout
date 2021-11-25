@@ -1,5 +1,7 @@
 package com.vanchi.a7minuteworkout
 
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -20,6 +22,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var exercises: ArrayList<Exercise>? = null
     private var currentExercisePosition: Int = -1
     private var textToSpeech : TextToSpeech? = null
+    private var mediaPlayer: MediaPlayer? = null
     object ExerciseConstants {
         const val REST_TIME_IN_MS = 1000L
         const val EXERCISE_TIME_IN_MS = 3000L
@@ -48,7 +51,23 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding?.flExercise?.visibility = View.INVISIBLE
         binding?.imageView?.visibility = View.INVISIBLE
         binding?.tvExercise?.visibility = View.INVISIBLE
+        val soundURI = Uri.parse("android.resource://com.vanchi.a7minuteworkout/" + R.raw.press_start)
+        mediaPlayer = MediaPlayer.create(applicationContext, soundURI)
+        mediaPlayer?.isLooping = false
         setupRestTimer()
+    }
+    override fun onInit(status: Int) {
+        if(status == TextToSpeech.SUCCESS){
+            val result = textToSpeech?.setLanguage(Locale.US)
+            if(result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA){
+                Log.e("TTS", "The language is not supported")
+            }
+        }else{
+            Log.e("TTS", "Initialiazation Failed")
+        }
+    }
+    private fun speak(text: String){
+        textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     private fun setupRestTimer(){
@@ -65,7 +84,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             binding?.tvUpcomingExerciseLabel?.visibility = View.VISIBLE
             binding?.tvUpcomingExerciseText?.visibility = View.VISIBLE
             binding?.tvUpcomingExerciseText?.text = exercises!![currentExercisePosition].getName()
-
+            speak("Time to rest up")
+            mediaPlayer?.start()
             startRestTimer()
         }else{
             Toast.makeText(this, "Congratulations! You are done with 7 minutes of workout!!", Toast.LENGTH_SHORT).show()
@@ -106,7 +126,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             exerciseTimer = null
         }
         binding?.imageView?.setImageResource(exercises!![currentExercisePosition].getImage())
-        speakExerciseName(exercises!![currentExercisePosition].getName())
+        speak(exercises!![currentExercisePosition].getName())
         startExerciseTimer()
     }
 
@@ -156,21 +176,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         binding = null
-    }
-
-    override fun onInit(status: Int) {
-        if(status == TextToSpeech.SUCCESS){
-            val result = textToSpeech?.setLanguage(Locale.US)
-            if(result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA){
-                Log.e("TTS", "The language is not supported")
-            }
-        }else{
-            Log.e("TTS", "Initialiazation Failed")
-        }
-    }
-
-    private fun speakExerciseName(exerciseName: String){
-        textToSpeech?.speak(exerciseName, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
 }
