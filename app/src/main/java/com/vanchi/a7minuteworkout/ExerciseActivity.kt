@@ -9,6 +9,8 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.vanchi.a7minuteworkout.databinding.ActivityExcerciseBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -23,6 +25,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var currentExercisePosition: Int = -1
     private var textToSpeech : TextToSpeech? = null
     private var mediaPlayer: MediaPlayer? = null
+    private var recyclerViewAdapter:ExerciseStatusAdapter? = null
     object ExerciseConstants {
         const val REST_TIME_IN_MS = 1000L
         const val EXERCISE_TIME_IN_MS = 3000L
@@ -55,6 +58,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         mediaPlayer = MediaPlayer.create(applicationContext, soundURI)
         mediaPlayer?.isLooping = false
         setupRestTimer()
+        setupExerciseItemRecyclerView()
     }
     override fun onInit(status: Int) {
         if(status == TextToSpeech.SUCCESS){
@@ -130,6 +134,14 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         startExerciseTimer()
     }
 
+    private fun setupExerciseItemRecyclerView(){
+        binding?.rvExerciseStatus?.layoutManager = LinearLayoutManager(
+            this,LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewAdapter = ExerciseStatusAdapter(exercises!!)
+        binding?.rvExerciseStatus?.adapter = recyclerViewAdapter
+
+    }
+
     private fun startExerciseTimer(){
         if(exerciseTimer != null){
             exerciseTime = 0
@@ -173,6 +185,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             textToSpeech?.stop()
             textToSpeech?.shutdown()
             textToSpeech = null
+        }
+
+        if(mediaPlayer != null){
+            mediaPlayer?.stop()
+            mediaPlayer = null
         }
 
         binding = null
