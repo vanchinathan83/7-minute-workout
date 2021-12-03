@@ -1,5 +1,6 @@
 package com.vanchi.a7minuteworkout
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -92,7 +93,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             mediaPlayer?.start()
             startRestTimer()
         }else{
-            Toast.makeText(this, "Congratulations! You are done with 7 minutes of workout!!", Toast.LENGTH_SHORT).show()
+            val finish = Intent(this@ExerciseActivity, FinishActivity::class.java)
+            startActivity(finish)
+            finish()
         }
     }
 
