@@ -131,6 +131,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         binding?.imageView?.setImageResource(exercises!![currentExercisePosition].getImage())
         speak(exercises!![currentExercisePosition].getName())
+        exercises!![currentExercisePosition].setIsSelected(true)
+        recyclerViewAdapter?.notifyDataSetChanged()
         startExerciseTimer()
     }
 
@@ -161,6 +163,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 binding?.imageView?.visibility = View.INVISIBLE
                 binding?.tvExercise?.visibility = View.INVISIBLE
                 binding?.tvTitle?.text = "Time to Rest up"
+                exercises!![currentExercisePosition].setIsSelected(false)
+                exercises!![currentExercisePosition].setIsCompleted(true)
+                recyclerViewAdapter?.notifyDataSetChanged()
                 setupRestTimer()
             }
 
