@@ -12,9 +12,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        var frameLayout = binding?.frameLayout?.setOnClickListener{
+        binding?.frameLayout?.setOnClickListener{
             val intent = Intent(this, ExerciseActivity::class.java)
             startActivity(intent)
+        }
+
+        binding?.bmiFramelayout?.setOnClickListener{
+            val bmiIntent = Intent(this, BMICalculator::class.java)
+            startActivity(bmiIntent)
         }
     }
 
