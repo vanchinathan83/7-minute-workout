@@ -3,4 +3,8 @@
     <string name="logo_description">Logo of 7 Min Workout</string>
     <string name="finish_message">Congratulations !! You finished 7 minutes of workout.</string>
     <string name="finish_button_text">Finish Exercise</string>
+    <string name="dialog_header_msg">Are you sure?</string>
+    <string name="dialog_msg">You have come this far. Do you want to quit?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.vanchi.a7minuteworkout
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -12,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.vanchi.a7minuteworkout.databinding.ActivityCustomDialogBinding
 import com.vanchi.a7minuteworkout.databinding.ActivityExcerciseBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -46,7 +48,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         binding?.toolbar?.setNavigationOnClickListener{
-            onBackPressed()
+            displayCustomDialog()
         }
         textToSpeech = TextToSpeech(this, this)
         exercises = Constants.getExercises()
@@ -61,6 +63,26 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setupRestTimer()
         setupExerciseItemRecyclerView()
     }
+
+    private fun displayCustomDialog() {
+        val customDialog = Dialog(this)
+        val customDialogBinding = ActivityCustomDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(customDialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        customDialogBinding.btnYes?.setOnClickListener{
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
+        customDialogBinding.btnNo?.setOnClickListener{
+            customDialog.dismiss()
+        }
+        customDialog.show()
+    }
+
+    override fun onBackPressed() {
+        displayCustomDialog()
+    }
+
     override fun onInit(status: Int) {
         if(status == TextToSpeech.SUCCESS){
             val result = textToSpeech?.setLanguage(Locale.US)
