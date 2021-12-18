@@ -145,9 +145,6 @@
             android:gravity="center"
             android:textSize="14sp"
             tools:text="You need to reduce your weight to avoid further complications."/>
-
-
-
     </LinearLayout>
     <Button
         android:id="@+id/btnBMICalculate"

@@ -40,14 +40,46 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/historyFrameLayout"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bmi_framelayout"
+        app:layout_constraintTop_toBottomOf="@id/frame_layout"
+        android:background="@drawable/item_circular_color_acccent_background"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_calendar"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:textColor="@color/color_primary_accent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/historyFrameLayout"
+        app:layout_constraintStart_toStartOf="@id/historyFrameLayout"
+        app:layout_constraintEnd_toEndOf="@id/historyFrameLayout"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        />
+
+    <FrameLayout
         android:id="@+id/bmi_framelayout"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/item_circular_color_acccent_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frame_layout">
+        app:layout_constraintStart_toEndOf="@id/historyFrameLayout"
+        app:layout_constraintTop_toBottomOf="@id/frame_layout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/start_bmi"
@@ -69,8 +101,8 @@
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/bmi_framelayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/bmi_framelayout"
+        app:layout_constraintEnd_toEndOf="@id/bmi_framelayout"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         />

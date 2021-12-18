@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
             val bmiIntent = Intent(this, BMICalculator::class.java)
             startActivity(bmiIntent)
         }
+
+        binding?.historyFrameLayout?.setOnClickListener{
+            val historyIntent = Intent(this, HistoryActivity::class.java)
+            startActivity(historyIntent)
+        }
     }
 
     override fun onDestroy() {
