@@ -1,7 +1,6 @@
 package com.vanchi.a7minuteworkout
 
-import android.content.Intent
-import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -20,7 +19,8 @@ class FinishActivity : AppCompatActivity() {
         binding?.finishButton?.setOnClickListener{ view ->
             val description = binding?.etDescription?.text.toString()
             lifecycleScope.launch {
-                historyDao.insert(HistoryEntity(date= Date().toString(), description = description))
+                val dateFormated = SimpleDateFormat("MM/dd/yyyy - HH:MM").format(Date())
+                historyDao.insert(HistoryEntity(date= dateFormated, description = description))
             }
             finish()
         }
