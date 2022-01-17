@@ -30,12 +30,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var mediaPlayer: MediaPlayer? = null
     private var recyclerViewAdapter:ExerciseStatusAdapter? = null
     object ExerciseConstants {
-        const val REST_TIME_IN_MS = 1000L
-        const val EXERCISE_TIME_IN_MS = 3000L
+        const val REST_TIME_IN_MS = 10000L
+        const val EXERCISE_TIME_IN_MS = 30000L
         const val TICK_IN_MS = 1000L
         const val REST_TIME_TEXT = "10"
         const val EXERCISE_TIME_TEXT = "30"
-        const val EXERCISE_TEST = "Exercise Name:"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
